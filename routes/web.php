@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\LogAcessoMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
+
+// antes de entrar no controllador get  a request será interceptada pelo middleware;
+
+Route::middleware(LogAcessoMiddleware::class)->get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
 
 Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class,'sobre'])->name('site.sobrenos');
 Route::get('/contato', [\App\Http\Controllers\ContatoController::class,'contato'])->name('site.contato');
