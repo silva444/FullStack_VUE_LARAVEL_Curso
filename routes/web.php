@@ -21,7 +21,9 @@ use App\Http\Middleware\LogAcessoMiddleware;
 
 // antes de entrar no controllador get  a request será interceptada pelo middleware;
 
-Route::middleware(LogAcessoMiddleware::class)->get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
+// Route::middleware(LogAcessoMiddleware::class)->get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
+Route::get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])
+->name('site.index')->middleware('log.acesso');
 
 Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class,'sobre'])->name('site.sobrenos');
 Route::get('/contato', [\App\Http\Controllers\ContatoController::class,'contato'])->name('site.contato');
@@ -32,11 +34,13 @@ Route::get('/login', function(){
 });
 
 Route::prefix('/app')->group(function() {
-    Route::get('/clientes', function(){
+    // chamada encadeada de middleware /
+    // caso de tudo certo vai para na função  de callback;
+    Route::middleware('log.acesso','autenticacao')->get('/clientes', function(){
         return 'Clientes';
     })->name('app.clientes');
-    Route::get('/fornecedores',[\App\Http\Controllers\FornecedorController::class,'index'])->name('app.fornecedores');
-    Route::get('/produtos', function(){
+    Route::middleware('log.acesso','autenticacao')->get('/fornecedores',[\App\Http\Controllers\FornecedorController::class,'index'])->name('app.fornecedores');
+    Route::middleware('log.acesso','autenticacao')->get('/produtos', function(){
         return 'produtos';
     })->name('app.produtos');
 });
