@@ -13,10 +13,14 @@ class AutenticacaoMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next , $parametro, $perfil): Response
     {
         // return $next($request);
+        // echo $parametro;
 
+         if($parametro == 'padrao'){
+         echo 'verify the User and password on databsae '.' '. $perfil;
+         }
         if(true){
             return $next($request); // empurra para frente nessa caso para o nucleo na apliccaçõ
             // que é a rota ;

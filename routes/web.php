@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
 
+use App\Http\Controllers\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,25 +24,28 @@ use App\Http\Middleware\LogAcessoMiddleware;
 // antes de entrar no controllador get  a request será interceptada pelo middleware;
 
 // Route::middleware(LogAcessoMiddleware::class)->get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
-Route::get('/',[\App\Http\Controllers\PrincipalController::class,'principal'])
-->name('site.index')->middleware('log.acesso');
+Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'principal'])
+    ->name('site.index')->middleware('log.acesso');
 
-Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class,'sobre'])->name('site.sobrenos');
-Route::get('/contato', [\App\Http\Controllers\ContatoController::class,'contato'])->name('site.contato');
-Route::post('/contato', [\App\Http\Controllers\ContatoController::class,'salvar'])->name('site.contato');
+Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class, 'sobre'])->name('site.sobrenos');
+Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'contato'])->name('site.contato');
+Route::post('/contato', [\App\Http\Controllers\ContatoController::class, 'salvar'])->name('site.contato');
 
-Route::get('/login', function(){
-    return 'Login';
-});
+// para turna  o paramentro opicional utiliamos o ?;
+Route::get('/login/{erro?}', [LoginController::class,'index'] )->name('site.login');
+Route::post('/login', [LoginController::class,'Autenticar'] )->name('site.login');
 
-Route::prefix('/app')->group(function() {
+// passando um paramentro strig para o midddleware usando o :
+// nesta caso passaei doois parametro, o padrão e o visitante;
+// podemos passar quantos parametros for necessario;
+Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
     // chamada encadeada de middleware /
     // caso de tudo certo vai para na função  de callback;
-    Route::middleware('log.acesso','autenticacao')->get('/clientes', function(){
+    Route::get('/clientes', function () {
         return 'Clientes';
     })->name('app.clientes');
-    Route::middleware('log.acesso','autenticacao')->get('/fornecedores',[\App\Http\Controllers\FornecedorController::class,'index'])->name('app.fornecedores');
-    Route::middleware('log.acesso','autenticacao')->get('/produtos', function(){
+    Route::get('/fornecedores', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get('/produtos', function () {
         return 'produtos';
     })->name('app.produtos');
 });
@@ -51,15 +56,15 @@ Route::prefix('/app')->group(function() {
 // então posso colocar todos como opicional, mas tenho que colocar valores padrão ;
 
 
-Route::get('/contato/{nome}/{cat_id}',
- function(
-  string $nome,
-  int $cat_id=1
-  )
-  {
-    return 'esse é o nome  '.$nome .' '. $cat_id;
-}
-)->where('cat_id','[0-9]+')->where('nome','[A-Za-z]+'); // [0,9]+ , é uma expressão regular que diz oque pode ser recebido no cat-id
+Route::get(
+    '/contato/{nome}/{cat_id}',
+    function (
+        string $nome,
+        int $cat_id = 1
+    ) {
+        return 'esse é o nome  ' . $nome . ' ' . $cat_id;
+    }
+)->where('cat_id', '[0-9]+')->where('nome', '[A-Za-z]+'); // [0,9]+ , é uma expressão regular que diz oque pode ser recebido no cat-id
 //no caso: poder ser um numero de 0 a 9 e o mais siginifica que pode ter mais de um numero;
 // se eu tirar o mais , so poder ser um numero com apeas um caracter;
 // o mais sigfica pelos meno 1 caracter;
@@ -68,10 +73,10 @@ Route::get('/contato/{nome}/{cat_id}',
 
 
 // redircinar rota;
-Route::get('/route1', function(){
+Route::get('/route1', function () {
     return "1";
 })->name('site.route1');
-Route::get('/route2', function(){
+Route::get('/route2', function () {
     return redirect()->route('site.route1');
 })->name('site.route2');
 
@@ -86,14 +91,14 @@ Route::get('/route2', function(){
 // rota que sera disponibilizada para o usario , caso a rota não seja encontrada; 
 
 
-Route::fallback(function(){
-   return  'a Rota acessad não existe <a href="/">clique aqui</a> para ir para principal';
+Route::fallback(function () {
+    return  'a Rota acessad não existe <a href="/">clique aqui</a> para ir para principal';
 });
 
 
 // encaminhado paramentros da rota para o controlador;
 
-Route::get("/teste/{p1}/{p2}", [\App\Http\Controllers\TesteController::class,'teste'])->name('teste');
+Route::get("/teste/{p1}/{p2}", [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');
 
 
 // passar parametros de um controller para a view 

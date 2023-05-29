@@ -42,7 +42,17 @@ class LogAcessoMiddleware
         LogAcesso::create(['log' => "Ip $ip requisitou a rota $rota"]); 
         //return Response(' chegmos e finalizamos no proprio middleware');
 
-       return $next($request); // usar iisso para empurrar a requisição para frennte
+      // return $next($request); // usar iisso para empurrar a requisição para frennte
         // para o proximo middleware; // nessa caso para middlware autenticação;
+
+          $resposta =  $next($request);
+
+         // alterando o codifo de resposta, o o text da respota;
+         // essas inforamações estão todas na respota do next;
+          $resposta->setStatusCode(201,'O status e o texto da respposta foram modificados');
+
+
+          return $resposta;
+          //dd($resposta);
     }
 }

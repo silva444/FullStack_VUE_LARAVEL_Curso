@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // dessa forma essa middleware é utilizada em todas as rotas web;
-           // \App\Http\Middleware\LogAcessoMiddleware::class
+           \App\Http\Middleware\LogAcessoMiddleware::class
         ],
 
         'api' => [
