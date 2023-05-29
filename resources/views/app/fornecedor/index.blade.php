@@ -20,9 +20,8 @@ hmlt --}}
         <div class="menu">
 
             <ul>
-                <li><a href="">Novo</a></li>
-                <li><a href="">Consulta</a></li>
-                <li><a href="">Editar</a></li>
+                <li><a href="{{route('app.fornecedor.adicionar')}}">Novo</a></li>
+                <li><a href="{{route('app.fornecedor')}}">Consulta</a></li>
             </ul>
 
         </div>
