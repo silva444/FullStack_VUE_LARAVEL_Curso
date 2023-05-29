@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProdutoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,15 +42,19 @@ Route::post('/login', [LoginController::class,'Autenticar'] )->name('site.login'
 // nesta caso passaei doois parametro, o padrão e o visitante;
 // podemos passar quantos parametros for necessario;
 Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
+
+
+
+    Route::get('/home', [HomeController::class, 'index'])->name('app.home');
+    Route::get('/sair',[LoginController::class, 'sair'])->name('app.sair');
     // chamada encadeada de middleware /
     // caso de tudo certo vai para na função  de callback;
-    Route::get('/clientes', function () {
-        return 'Clientes';
-    })->name('app.clientes');
-    Route::get('/fornecedores', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
-    Route::get('/produtos', function () {
-        return 'produtos';
-    })->name('app.produtos');
+    Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
+
+    Route::get('/fornecedor', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+    Route::post('/fornecedor/listar', [\App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
 });
 
 // oque esta entre chaves pode ser chamado de parametro;

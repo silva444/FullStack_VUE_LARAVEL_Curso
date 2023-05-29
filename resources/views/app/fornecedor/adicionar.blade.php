@@ -11,10 +11,10 @@ hmlt --}}
 
     <div class="conteudo-pagina">
 
-        
+        {{-- action="{{route('')}}" --}}
 
         <div class="titulo-pagina-2">
-            <p>Fornecedor</p>
+            <p>Fornecedor = Adicionar</p>
         </div>
 
         <div class="menu">
@@ -30,9 +30,8 @@ hmlt --}}
         <div class="informacao-pagina">
             {{-- aplicando esse  estilo para centralizar a div --}}
             <div style="width: 30%; margin-right: auto; margin-left: auto;">
-{{-- action="{{route('')}}" --}}
-            <form method="POST" action="{{route('app.fornecedor.listar')}}">
-            @csrf
+
+            <form method="POST">
                 <input type="text" name="nome" class="borda-preta" placeholder="Nome">
                 <input type="text" name="site" class="borda-preta" placeholder="digite o site">
                 <input type="text" name="uf" class="borda-preta" placeholder="Digite o Nome do Estado">

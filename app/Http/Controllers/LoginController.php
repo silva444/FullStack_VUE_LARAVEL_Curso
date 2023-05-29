@@ -18,6 +18,9 @@ class LoginController extends Controller
         if($erro == 1){
             $erro= 'usuario ou senha não existe';
         }
+        else if($erro == 2){
+            $erro= 'Usuario não autorizado';
+        }
 
         return view('site.login', ['titulo' => 'login' , 'erro'=>$erro]);
     }
@@ -83,9 +86,30 @@ class LoginController extends Controller
        // verifica se existe possui o atributo name;
        // se o name o objeto estiver definido;
        // poderia usar o campo email no lugar do nome;
-       if(isset($existe->name)){
+       if(isset($existe->name)){ //  refazer esse if depois;
+       // para iniciar uma sessão no laravel usamos o comando 
+           session_start();
+       // iniciado o session com o (session_start) , podemos acessar a variavel super
+       //global $_SESSION(); , e definir indices e valores para essa super global;
+       $_SESSION['nome'] = $existe->name;//atribuindo o atributo nome , ao indice nome 
+       // da superGlobal $_SESSION ;
+       $_SESSION['email'] = $existe->email;
 
-           echo "usuario Existente no BD";
+       // a super global fica disponivel do lado do servidor
+       //sempre quando a instancia do browser que iniciuou essa super global.
+       // realizar uma requisição para o servidor , esse browser tera acesso ,
+       // a essas variaveis de sessão do lado do servidor; 
+
+       //ou seja
+
+       // cada instancia ou cada broser tera por tanto uma espaço ,
+       // de sessão exclusivo, do lado do servidor; 
+       // e esse browser podera recuperar essa informaçõa em outras paginas;
+       // sem ter que ficar passando os paramentos;
+
+       return redirect()->route('app.home');
+
+       //dd($_SESSION);
 
        }else {
            echo "Usuario Não existe";
@@ -102,4 +126,13 @@ class LoginController extends Controller
     //    print_r($existe);
     //    echo '</pre>';
     }
+
+  function sair(){
+    
+  session_destroy();
+  // destroi a sessão que foi criado a funncção autenticar desse controler;
+
+    return redirect()->route('site.index');
+    
+  }
 }
