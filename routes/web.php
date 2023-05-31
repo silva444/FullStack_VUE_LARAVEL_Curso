@@ -52,9 +52,16 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 
     Route::get('/fornecedor', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
-    Route::post('/fornecedor/listar', [\App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::post('/fornecedor/listar/', [\App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    // criamos o get por conta do link do paginate;
+    Route::get('/fornecedor/listar/', [\App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    // fornecedor get , esta sendo usado no botão novo;
     Route::get('/fornecedor/adicionar', [\App\Http\Controllers\FornecedorController::class, 'adicionar'])->name('app.fornecedor.adicionar');
     Route::post('/fornecedor/adicionar', [\App\Http\Controllers\FornecedorController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+    //nao necessariamente precisar ser id o nome , mas é bom para identificar ;
+    // colocamos o ? , para dizer que é um paramentro não obrigattorio;
+    Route::get('/fornecedor/editar/{id}/{msg?}', [\App\Http\Controllers\FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
+
 
     Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
 });
