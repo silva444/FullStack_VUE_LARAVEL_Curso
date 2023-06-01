@@ -61,9 +61,20 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     //nao necessariamente precisar ser id o nome , mas é bom para identificar ;
     // colocamos o ? , para dizer que é um paramentro não obrigattorio;
     Route::get('/fornecedor/editar/{id}/{msg?}', [\App\Http\Controllers\FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
+    Route::get('/fornecedor/excluir/{id}', [\App\Http\Controllers\FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
 
-
+    // Produtos
     Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
+    Route::get('/produto/create', [ProdutoController::class, 'create'])->name('app.produto.create');
+
+    // para criar as rotas de acordo com as funções do controller Produto 
+    // usamos esse comando :
+    // isso cria as rotas de acordo com as funções predefinidas do controller produto 
+    // ou seja inde, create, store, update, destroy;
+    Route::resource('produto', ProdutoController::class);
+    // como esta dentro de prefixo app , a rota fiaca dessa forma:
+        //app/produto/ -> 
+  
 });
 
 // oque esta entre chaves pode ser chamado de parametro;

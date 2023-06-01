@@ -1,6 +1,6 @@
 @extends('app.layouts.basico')
 
-@section('titulo', 'Fornecedor')
+@section('titulo', 'Produto')
 
 
 {{-- este conteudo vai para o Yeld do basico.blade.php , mas 
@@ -14,14 +14,14 @@ hmlt --}}
         {{-- action="{{route('')}}" --}}
 
         <div class="titulo-pagina-2">
-            <p>Fornecedor - Listar</p>
+            <p>Produto - Listar</p>
         </div>
 
         <div class="menu">
-
+  
             <ul>
-                <li><a href="{{ route('app.fornecedor.adicionar') }}">Novo</a></li>
-                <li><a href="{{ route('app.fornecedor') }}">Consulta</a></li>
+                <li><a href="">Novo</a></li>
+                <li><a href="">Consulta</a></li>
 
             </ul>
 
@@ -36,24 +36,25 @@ hmlt --}}
                     <thead>
                         {{-- tr- linha --}}
                         <tr>
-                            <th>Nome1</th>
-                            <th>site</th>
-                            <th>uf</th>
-                            <th>Email</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Peso</th>
+                            <th>Unidade_id</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fornecedores as $fornecedor)
+                    {{-- {{$request ?? ''}} --}}
+                        @foreach ($produtos as $produto)
                             <tr>
-                                <td>{{ $fornecedor->nome }}</td>
-                                <td>{{ $fornecedor->site }}</td>
-                                <td>{{ $fornecedor->uf }}</td>
-                                <td>{{ $fornecedor->email }}</td>
-                                <td><a href="{{route('app.fornecedor.excluir',$fornecedor->id)}}" >Excluir</a></td>
+                                <td>{{ $produto->nome }}</td>
+                                <td>{{ $produto->descricao }}</td>
+                                <td>{{ $produto->peso }}</td>
+                                <td>{{ $produto->unidade_id }}</td>
+                                <td><a href="" >Excluir</a></td>
                                 {{-- passando parametro para o route , que vai para a rota com esse nome --}}
-                                <td><a href="{{route('app.fornecedor.editar',$fornecedor->id)}}">Editar</a></td>
+                                <td><a href="">Editar</a></td>
                             </tr>
                         @endforeach      
                     </tbody>
@@ -63,14 +64,14 @@ hmlt --}}
                anexar ao body da requisição do link  --}}
                {{-- dessa forma traz os daddos relacionados a pesquisa em especifico e não 
                todos os registros do BD --}}
-              {{$fornecedores->count()}} -- mostra a quantidade por  pagina
+              {{$produtos->count()}} -- mostra a quantidade por  pagina
               <br>
-              {{$fornecedores->firstItem()}} -- O numero do primeiro regitro da pagina
+              {{$produtos->firstItem()}} -- O numero do primeiro regitro da pagina
               <br>
-              {{$fornecedores->lastItem()}} -- O numero do ultimo regitro da pagina
+              {{$produtos->lastItem()}} -- O numero do ultimo regitro da pagina
               <br>
-              {{$fornecedores->total()}} -- O total de resgistro
-               {{$fornecedores->appends($requests)->links()}}
+              {{$produtos->total()}} -- O total de resgistro
+               {{-- {{$produtos->appends($requests)->links()}} --}}
             
             </div>
         </div>

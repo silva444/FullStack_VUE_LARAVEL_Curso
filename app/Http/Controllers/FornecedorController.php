@@ -173,4 +173,19 @@ class FornecedorController extends Controller
         // para a view -> array Associativo;
         return view('app.fornecedor.adicionar', ['fornecedor' => $fornecedor, 'msg' => $msg]);
     }
+
+    public function excluir($id){
+         // pesquisa pelo id e apaga , nao definitivamente pois,
+         // a tabela usa o softdelete;
+        Fornecedor::find($id)->delete();
+
+        // para apagar definitivamente usamoos esse comando:
+        Fornecedor::find($id)->forceDelete();
+
+
+
+
+        return  redirect()->route('app.fornecedor');
+
+    }
 }
