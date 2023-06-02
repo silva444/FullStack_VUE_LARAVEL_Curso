@@ -20,7 +20,7 @@ hmlt --}}
         <div class="menu">
   
             <ul>
-                <li><a href="">Novo</a></li>
+                <li><a href="{{route('produto.create')}}">Novo</a></li>
                 <li><a href="">Consulta</a></li>
 
             </ul>
@@ -42,6 +42,7 @@ hmlt --}}
                             <th>Unidade_id</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,8 +54,10 @@ hmlt --}}
                                 <td>{{ $produto->peso }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
                                 <td><a href="" >Excluir</a></td>
+                                {{-- enviamos um parameto ateves de um array --}}
+                                <td><a href="{{route('produto.show', ['produto'=>$produto->id])}}" >Visualizar</a></td>
                                 {{-- passando parametro para o route , que vai para a rota com esse nome --}}
-                                <td><a href="">Editar</a></td>
+                                <td><a href="{{route('produto.edit', ['produto'=>$produto->id])}}">Editar</a></td>
                             </tr>
                         @endforeach      
                     </tbody>
