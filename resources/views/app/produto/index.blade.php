@@ -40,6 +40,9 @@ hmlt --}}
                             <th>Descrição</th>
                             <th>Peso</th>
                             <th>Unidade_id</th>
+                            <th>Comprimento</th>
+                            <th>Altura</th>
+                            <th>Largura</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -53,7 +56,15 @@ hmlt --}}
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->peso }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
+                                {{-- se o comprimento exisitir omstra senão mostra um 
+                                espaçõ em branco --}}
+                                <td>{{$produto->comprimento ?? ' '}}</td>
+                                <td>{{$produto->altura ?? ' '}}</td>
+                                <td>{{$produto->largura ?? ' '}}</td>
+                                <td></td>
+                                <td></td>
                                 <td>
+
                                 {{-- preciso fazer um formulario utiliazndo post 
                                 no meto e dentro do formulario usar o metodo do laravel
                                 @method() - passando o delete --}}
