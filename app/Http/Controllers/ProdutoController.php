@@ -89,9 +89,13 @@ class ProdutoController extends Controller
     {  
         // recebe todos os registro da tabela unidades,
         // isso é feito atraves do metodo all();
+       
         $unidade= Unidade::all();
 
-        return view('app.produto.edit',['produto'=>$produto , 'unidades'=>$unidade]);
+        // dd($unidade);
+
+          return view('app.produto.edit',['produto'=>$produto , 'unidades'=>$unidade]);
+        // return view('app.produto.create',['produto'=>$produto , 'unidades'=>$unidade]);
     }
 
     /**
@@ -99,7 +103,35 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
-        //
+        // AO ENVIAR O ID PARA O CONTROLLER , ATRAVES DA ROTA QUE COLOCAMOS NO FORMULARIO,
+        // O LARAVEL JA TRAZ O OJETO RELACIONADO AO ID ENVIADO ATRAVES DO ARRAY ASSOCIATIVO,
+        // DESSA FORMA JÁ TEMOS O REGISTRO CORRETO PARA FAZEMOS A EDIÇÃO;
+
+        // NO REQUESTE VEM AS INFORMAÇÕES DIGITADAS NO FORMUALARIO;
+         
+
+       // $request->all();// representa o payload , os dados uteis da requisição http;
+
+       // print_r($request->all());// reorna um arry associativo ;
+        //atributos que eu quero persistir no lugar do resgsitro antigo;
+
+       // echo '<br>';
+
+        //print_r($produto->getAttributes()); // retorna um arrray associativo  ;
+        // do objeto no estado anterior; traz o registro em que quero alterar 
+        // pelo id enviado na rota do formulario atraves de um array associativo;
+        // dados do objeto no banco;
+       
+
+        $produto->update($request->all());
+
+      // redirecionanod para o view show , e passado com parametro o id do produto(registro);
+
+
+        return redirect()->route('produto.show',['produto'=>$produto->id]);
+
+
+
     }
 
     /**
@@ -107,6 +139,10 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+       //print_r($produto->getAttributes());// retorna um arrray associtivo do 
+       //objeeto, que tem os registro associado a id passada como parametro;
+       $produto->delete();
+
+       return redirect()->route('produto.index');
     }
 }

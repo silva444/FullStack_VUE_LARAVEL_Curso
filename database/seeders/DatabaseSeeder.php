@@ -15,9 +15,15 @@ class DatabaseSeeder extends Seeder
 
     {
 
+        // criar para unidade um seed , pois ele tem relacionamento com produto;
+
+        // coloquei o motivo contato em primeiro pois ele tem um relacionamento,
+        // com site contato , por esse motivo, 
+        // ela deve ser executad primeiro, se não da erro;
+        $this->call(MotivoContatoSeeder::class);
         $this->call(FornecedorSeeder::class);
         $this->call(SiteContatoSeeder::class);
-        $this->call(MotivoContatoSeeder::class);
+       
         
         // \App\Models\User::factory(10)->create();
 

@@ -1,6 +1,6 @@
 @extends('app.layouts.basico')
 
-@section('titulo', 'Fornecedor')
+@section('titulo', 'Proddutos-detalhes Criar')
 
 
 {{-- este conteudo vai para o Yeld do basico.blade.php , mas 
@@ -14,17 +14,25 @@ hmlt --}}
         {{-- action="{{route('')}}" --}}
 
         <div class="titulo-pagina-2">
-            <p>Produto = Editar</p>
+           {{-- se exitir o atributo id -  entao é edição --}}
+            {{-- @if(isset($produto->id))
+            <p>Produto = update</p>
+            @else
+            <p>Produto = adicionnar</p>
+            @endif --}}
+            
+            <p>Produto_detalhe = Criar</p>
+      
         </div>
 
         <div class="menu">
 
             <ul>
-                <li><a href="{{ route('produto.index') }}">Voltar</a></li>
+                <li><a href="#">Voltar</a></li>
                 {{-- vai para rota get create que é oculta 
                 por conta do metodo route que foi usado nas 
                 rotass web --}}
-                <li><a href="">Consulta</a></li>
+               
 
             </ul>
 
@@ -32,11 +40,16 @@ hmlt --}}
 
         <div class="informacao-pagina">
             {{-- aplicando esse  estilo para centralizar a div --}}
-             {{ isset($msg) && $msg != '' ? $msg : '' }}
             <div style="width: 30%; margin-right: auto; margin-left: auto;">
-                @component('app.produto._component.form_create_edit',['produto'=>$produto , 'unidades'=>$unidades])
-                @endcomponent
+                {{ isset($msg) && $msg != '' ? $msg : '' }}
+                {{-- ou dessa forma dar na mesma  --}}
+                {{-- {{  $msg ?? '' }} --}}
+
+            @component('app.produto_detalhe._component.form_create_edit', ['unidades'=>$unidades])
     
+           @endcomponent
+               
+
             </div>
 
         </div>

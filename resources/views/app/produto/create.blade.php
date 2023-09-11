@@ -14,7 +14,12 @@ hmlt --}}
         {{-- action="{{route('')}}" --}}
 
         <div class="titulo-pagina-2">
-            <p>Produto = Adicionar</p>
+           {{-- se exitir o atributo id -  entao é edição --}}
+            {{-- @if(isset($produto->id))
+            <p>Produto = update</p>
+            @else
+            <p>Produto = adicionnar</p>
+            @endif --}}
         </div>
 
         <div class="menu">
@@ -36,25 +41,11 @@ hmlt --}}
                 {{ isset($msg) && $msg != '' ? $msg : '' }}
                 {{-- ou dessa forma dar na mesma  --}}
                 {{-- {{  $msg ?? '' }} --}}
-                <form method="post" action="{{route('produto.store')}}">
-                    @csrf
-                    <input type="text" name="nome" value="{{old('nome')}}" class="borda-preta" placeholder="Nome">
-                   {{-- has-> verificar se a erros relaciona como esse nome 
-                     first-> traz o primeiro erro--}}
-                    {{$errors->has('nome') ?  $errors->first('nome') : ''}}
-                    <input type="text" name="descricao" value="{{old('descricao')}}" class="borda-preta" placeholder="Descrição">
-                    {{$errors->has('descricao') ?  $errors->first('descricao') : ''}}
-                    <input type="text" name="peso" value="{{old('peso')}}" class="borda-preta" placeholder="Peso">
-                    {{$errors->has('peso') ?  $errors->first('peso') : ''}}
-                    <select name="unidade_id">
-                        <option>Selecion a Unidade</option>
-                        @foreach ($unidades as $unidade)
-                            <option value="{{ $unidade->id }}" {{old('unidade_id') == $unidade->id ? 'selected':'' }}>{{ $unidade->unidade }}</option>
-                        @endforeach
-                    </select>
-                    {{$errors->has('unidade_id') ?  $errors->first('unidade_id') : ''}}
-                    <button class="borda-preta" type="submit">Cadastrar</button>
-                </form>
+
+            @component('app.produto._component.form_create_edit',['unidades'=>$unidades])
+    
+           @endcomponent
+               
 
             </div>
 

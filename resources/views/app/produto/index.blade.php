@@ -53,7 +53,28 @@ hmlt --}}
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->peso }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
-                                <td><a href="" >Excluir</a></td>
+                                <td>
+                                {{-- preciso fazer um formulario utiliazndo post 
+                                no meto e dentro do formulario usar o metodo do laravel
+                                @method() - passando o delete --}}
+                                {{-- concateno com produto id, para que 
+                                cada formualrio tem um id diferente para um registro selecionado
+                                para exclusão --}}
+                                <form id="form_{{$produto->id}}" action="{{route('produto.destroy',['produto'=>$produto->id])}}" method="post">
+                                {{-- a requisição vair ser feita via post , mas quando for recebida ,
+                                do lado do backend , o laravel vai enteder que é um delete , por causa do 
+                                metodo @method('delete') --}}
+                                @method('delete')
+                                @csrf
+                                {{-- utilzamoss um evento js , para executar o submit do form--}}
+                                {{-- o onclick, feita dessa forma seleciona o elemetno html com id especidifoco
+                                para ser submetido --}}
+                               <a href="#" onclick="document.getElementById('form_{{$produto->id}}').submit()">Excluir</a>
+                                </form>
+                                
+
+                                
+                                </td>
                                 {{-- enviamos um parameto ateves de um array --}}
                                 <td><a href="{{route('produto.show', ['produto'=>$produto->id])}}" >Visualizar</a></td>
                                 {{-- passando parametro para o route , que vai para a rota com esse nome --}}

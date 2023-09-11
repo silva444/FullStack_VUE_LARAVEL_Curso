@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProdutoController;
 
+use App\Http\Controllers\ProdutoDetalheController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,6 +76,16 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::resource('produto', ProdutoController::class);
     // como esta dentro de prefixo app , a rota fiaca dessa forma:
         //app/produto/ -> 
+
+
+
+    //  produto-detalhe é a rota raiz 
+    // cria as rotas de acordo com as funções padroes do controller 
+    // produto-detahle;
+    Route::resource('produto-detalhe', ProdutoDetalheController::class);
+
+
+
   
 });
 

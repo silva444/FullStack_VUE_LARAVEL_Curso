@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produto__detalhes', function (Blueprint $table) {
+        Schema::create('produto_detalhes', function (Blueprint $table) {
             $table->id();
             // a chave estrngeira precisa ter o mesmo tipo da chave primarior da tabelas proodutos;
             $table->unsignedBigInteger('produto_id'); // é uma convenção do framework , 
@@ -46,6 +46,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        
         Schema::dropIfExists('produto__detalhes');
 
         // tenho que remover e a chave fk , 

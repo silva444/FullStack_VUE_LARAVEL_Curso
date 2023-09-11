@@ -39,7 +39,7 @@ return new class extends Migration
         });
         // adicionar o relacionamento  com a tabela produtos detahles;
 
-        Schema::table('produto__detalhes', function(Blueprint $table){
+        Schema::table('produto_detalhes', function(Blueprint $table){
             $table->unsignedBigInteger('unidade_id');
             $table->foreign('unidade_id')->references('id')->on('unidades');
 
