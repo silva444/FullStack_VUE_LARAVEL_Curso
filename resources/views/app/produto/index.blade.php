@@ -38,6 +38,8 @@ hmlt --}}
                         <tr>
                             <th>Nome</th>
                             <th>Descrição</th>
+                            <th>Forncedor Nome</th>
+                            <th>Forncedor Site</th>
                             <th>Peso</th>
                             <th>Unidade_id</th>
                             <th>Comprimento</th>
@@ -54,15 +56,19 @@ hmlt --}}
                             <tr>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
+                                {{-- chamamos a função feita na model item 
+                                 e o nome da campo da model--}}
+                                <td>{{ $produto->fornecedor->nome }}</td>
+                                <td>{{ $produto->fornecedor->site }}</td>
                                 <td>{{ $produto->peso }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
                                 {{-- se o comprimento exisitir omstra senão mostra um 
                                 espaçõ em branco --}}
-                                <td>{{$produto->comprimento ?? ' '}}</td>
-                                <td>{{$produto->altura ?? ' '}}</td>
-                                <td>{{$produto->largura ?? ' '}}</td>
-                                <td></td>
-                                <td></td>
+                                {{-- estou uando item mas pode alterar para a model produto
+                                la no controller produto --}}
+                                <td>{{$produto->ItemDetalhe->comprimento ?? ' '}}</td>
+                                <td>{{$produto->ItemDetalhe->altura ?? ' '}}</td>
+                                <td>{{$produto->ItemDetalhe->largura ?? ' '}}</td>
                                 <td>
 
                                 {{-- preciso fazer um formulario utiliazndo post 

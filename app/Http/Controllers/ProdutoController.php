@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
+use App\Models\Item;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
 use App\Models\ProdutoDetalhe;
@@ -14,30 +15,43 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::paginate(10);
+        // é posso subistituir produto por item 
+        //  que vai ter o mesmo resultado;
+        
+        // nessse caso não daria nehuma erro pois as funções da model item 
+        //  é a mesma de Produto;
+        // mas posso mudar o nome do metodo, mas tem que mudar no index de 
+        // produto para não da nenhum erro;vou Usar item mas poode deixar
+        // produto mesmo;
+        // passa o nome da função feita na model item 
+        // para ser usadasd no index do proudo 
+        // essa forma é conhecida como eagerloading(carregamento ancioso);
+        // agora produto tem as infroamaçõa de item detalhe e fornecedor
+        // antes de precisar ser chamada no index do produto;
+        $produtos = Item::with(['ItemDetalhe', 'fornecedor'])->paginate(10);
 
         // foreach , cria uma copia do array que ele esta percorrendo
-        foreach ($produtos as $key => $produto) {
-            // quando eu uso o first retorna um produto detahle
-            // se eu não usar retornaria um colletion ;
-            // ou seja um aarya de objetos; ou regstros
-            print_r($produto->getAttributes());
-            echo '<br><br>';
-            $produtodetalhe = ProdutoDetalhe::where('produto_id', $produto->id)->first();
-            //  se existir produto_detalhe 
-            if (isset($produtodetalhe)) {
-                // acessa os atributos do Objeto
-                print_r($produtodetalhe->getAttributes());
-                //se o produto_detalhe existir recupero o produto utilzando a key 
-                // e como o relacionamento é de 1,1 ja pego os atributos 
+        // foreach ($produtos as $key => $produto) {
+        //     // quando eu uso o first retorna um produto detahle
+        //     // se eu não usar retornaria um colletion ;
+        //     // ou seja um aarya de objetos; ou regstros
+        //    // print_r($produto->getAttributes());
+        //    // echo '<br><br>';
+        //     $produtodetalhe = ProdutoDetalhe::where('produto_id', $produto->id)->first();
+        //     //  se existir produto_detalhe 
+        //     if (isset($produtodetalhe)) {
+        //         // acessa os atributos do Objeto
+        //        // print_r($produtodetalhe->getAttributes());
+        //         //se o produto_detalhe existir recupero o produto utilzando a key 
+        //         // e como o relacionamento é de 1,1 ja pego os atributos 
 
-                // qual o indice do produto que eu quero afetar
-                // por isso uso o kEy
-                $produtos[$key]['comprimento'] = $produtodetalhe->comprimento;
-                $produtos[$key]['altura'] = $produtodetalhe->altura;
-                $produtos[$key]['largura'] = $produtodetalhe->largura;
-            }
-        };
+        //         // qual o indice do produto que eu quero afetar
+        //         // por isso uso o kEy
+        //         $produtos[$key]['comprimento'] = $produtodetalhe->comprimento;
+        //         $produtos[$key]['altura'] = $produtodetalhe->altura;
+        //         $produtos[$key]['largura'] = $produtodetalhe->largura;
+        //     }
+        // };
         return view('app.produto.index', ['produtos' => $produtos, 'request' => $request]);
     }
 

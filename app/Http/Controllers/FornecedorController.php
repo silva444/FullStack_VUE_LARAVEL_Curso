@@ -60,12 +60,15 @@ class FornecedorController extends Controller
             // ->where('uf', 'like', '%' . $req->input('uf') . '%')
             // ->where('email', 'like', '%' . $req->input('email') . '%')
             // ->get(); // get retorna uma collection ;
-
-            $fornecedor2 = Fornecedor::where('nome', 'like', '%'. $req->input('nome') .'%')
+          
+            // chamamos a função prodtuos , criada no model fornecerdo,
+            // dessa forma estamos utlizando o Eagaer loaadin (carregamento ocioso);
+             
+            $fornecedor2 = Fornecedor::with('produtos')->where('nome', 'like', '%'. $req->input('nome') .'%')
             ->where('site', 'like', '%' . $req->input('site') . '%')
             ->where('uf', 'like', '%' . $req->input('uf') . '%')
             ->where('email', 'like', '%' . $req->input('email') . '%')
-            ->paginate(2); // quantidade de registro retornado por paginação~;
+            ->paginate(5); // quantidade de registro retornado por paginação~;
 
         
         // eviando a colletion para a pagina de listar ;
@@ -178,13 +181,8 @@ class FornecedorController extends Controller
          // pesquisa pelo id e apaga , nao definitivamente pois,
          // a tabela usa o softdelete;
         Fornecedor::find($id)->delete();
-
         // para apagar definitivamente usamoos esse comando:
         Fornecedor::find($id)->forceDelete();
-
-
-
-
         return  redirect()->route('app.fornecedor');
 
     }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ProdutoDetalhe;
 use App\Models\Unidade;
+use App\Models\ItemDetalhe;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
+
 
 class ProdutoDetalheController extends Controller
 {
@@ -55,7 +57,8 @@ class ProdutoDetalheController extends Controller
     {
         //dd($produtodetahle);
         $unidades= Unidade::all();
-        $prod = ProdutoDetalhe::find($id);
+        // mudamos de produto detlahe para item detalhe;
+        $prod = ItemDetalhe::with(['item'])->find($id);
       // dd($unidades);
         return view('app.produto_detalhe.edit',['produto_detalhe'=>$prod , 'unidades'=>$unidades]);
      }

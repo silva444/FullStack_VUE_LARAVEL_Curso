@@ -22,4 +22,17 @@ class Fornecedor extends Model
     // persistido no banco de dados;
     protected $fillable=['nome','site','uf','email']; // esse não precisa ser criado caso utilia o save();
     use HasFactory;
+
+
+    public function produtos(){
+        // podemos passar tres parametros:
+        // o model a foreign_key e  a coluna que represestan a chama primaria
+        // da tebela que esta sendo mapeaada por esse model, que no caso e a tebala fornecedores;
+        
+        // não precisrioa passa o fornecedore_id e o id ,
+        //  pois isso é feito de forma implicita;
+        
+
+       return $this->hasMany('App\models\item', 'fornecedor_id', 'id');
+    }
 }

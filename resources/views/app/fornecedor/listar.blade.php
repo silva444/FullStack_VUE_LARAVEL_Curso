@@ -31,7 +31,7 @@ hmlt --}}
             {{-- aplicando esse  estilo para centralizar a div --}}
             <div style="width: 90%; margin-right: auto; margin-left: auto;">
                 {{-- {{print_r($requests)}} --}}
-                 
+
                 <table border="1" width="100%">
                     <thead>
                         {{-- tr- linha --}}
@@ -51,27 +51,56 @@ hmlt --}}
                                 <td>{{ $fornecedor->site }}</td>
                                 <td>{{ $fornecedor->uf }}</td>
                                 <td>{{ $fornecedor->email }}</td>
-                                <td><a href="{{route('app.fornecedor.excluir',$fornecedor->id)}}" >Excluir</a></td>
+                                <td><a href="{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></td>
                                 {{-- passando parametro para o route , que vai para a rota com esse nome --}}
-                                <td><a href="{{route('app.fornecedor.editar',$fornecedor->id)}}">Editar</a></td>
+                                <td><a href="{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
                             </tr>
-                        @endforeach      
+
+                            <tr>
+                                <td colspan="6">
+                                    <p>Lista de produtos</p>
+                                    <table border="1" style="margin:20px;">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- usa o objeto do primeiro for ecah 
+                                        e chamo a função de relacionamento hasMany 
+                                        que foi criadad no model fornecedor --}}
+                                            {{-- chama a funçção produtos para cada objeto de fornecedro 
+                                         e recuperar cada objeto de produtos --}}
+                                            @foreach ($fornecedor->produtos as $key => $produto)
+                                            {{-- cada produoto de cada um dos nosso fornecedores recu
+                                            permos o nome --}}
+                                                <tr>
+                                                    <td>{{$produto->id}}</td>
+                                                    <td>{{$produto->nome}}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
-               {{-- o append pega todas as informaçãoes od array associativo e 
+                {{-- o append pega todas as informaçãoes od array associativo e 
                anexar ao body da requisição do link  --}}
-               {{-- dessa forma traz os daddos relacionados a pesquisa em especifico e não 
+                {{-- dessa forma traz os daddos relacionados a pesquisa em especifico e não 
                todos os registros do BD --}}
-              {{$fornecedores->count()}} -- mostra a quantidade por  pagina
-              <br>
-              {{$fornecedores->firstItem()}} -- O numero do primeiro regitro da pagina
-              <br>
-              {{$fornecedores->lastItem()}} -- O numero do ultimo regitro da pagina
-              <br>
-              {{$fornecedores->total()}} -- O total de resgistro
-               {{$fornecedores->appends($requests)->links()}}
-            
+                {{ $fornecedores->count() }} -- mostra a quantidade por pagina
+                <br>
+                {{ $fornecedores->firstItem() }} -- O numero do primeiro regitro da pagina
+                <br>
+                {{ $fornecedores->lastItem() }} -- O numero do ultimo regitro da pagina
+                <br>
+                {{ $fornecedores->total() }} -- O total de resgistro
+                {{ $fornecedores->appends($requests)->links() }}
+
             </div>
         </div>
     </div>

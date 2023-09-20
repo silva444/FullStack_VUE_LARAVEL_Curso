@@ -27,6 +27,18 @@ hmlt --}}
             </ul>
         </div>
         <div class="informacao-pagina">
+
+             <h4>Produto</h4>
+             {{-- o produto é a função criada no model Produo detahle --}}
+             {{-- podemos chamar um atributo do objeto no qual o produto detalhe pertence
+             no caso o Produto; --}}
+
+             {{-- mudamos de produto para item , pois agora estamos utilizando 
+             a model Item detlhae de tem um relacionando belogs to que é uma 
+             função chamada item, por isso temos que chamar item aqui --}}
+             <div>nome: {{$produto_detalhe->item->nome}} </div>
+             <br>
+             <div>Descrição: {{$produto_detalhe->item->descricao}} </div>
             {{-- aplicando esse  estilo para centralizar a div --}}
             {{ isset($msg) && $msg != '' ? $msg : '' }}
             <div style="width: 30%; margin-right: auto; margin-left: auto;">
