@@ -15,7 +15,8 @@ class Item extends Model
         'nome',
         'peso',
         'descricao',
-        'unidade_id'
+        'unidade_id',
+        'fornecedor_id',
     ];
     // Item tem um itemDetalhe 
     //  e Item detalhe Pertence a um Item;

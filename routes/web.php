@@ -6,6 +6,8 @@ use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\ProdutoController;
 
 use App\Http\Controllers\ProdutoDetalheController;
@@ -83,6 +85,14 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     // cria as rotas de acordo com as funções padroes do controller 
     // produto-detahle;
     Route::resource('produto-detalhe', ProdutoDetalheController::class);
+
+
+    // criando rotas de acordo com as funções padrões do controler
+    // elas ficam implicitas
+    // para ver é só usar o comando route:list
+    Route::resource('cliente', ClienteController::class);
+    Route::resource('pedido', PedidoController::class);
+    Route::resource('pedido-produto', PedidoProdutoController::class);
 
 
 

@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
 use App\Models\ProdutoDetalhe;
+use App\Models\Fornecedor;
 
 class ProdutoController extends Controller
 {
@@ -62,7 +63,8 @@ class ProdutoController extends Controller
     {
 
         $unidades = Unidade::all();
-        return view('app.produto.create', ['unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.create', ['unidades' => $unidades, 'fornecedores' => $fornecedores]);
     }
 
     /**
@@ -81,6 +83,7 @@ class ProdutoController extends Controller
             // o id informado tem que existir na tabela unidades;
             'unidade_id' => 'exists:unidades,id',
             'nome' => 'required',
+            'fornecedor_id' => 'exists:fornecedores,id',
         ];
 
         $feedback = [
@@ -89,10 +92,11 @@ class ProdutoController extends Controller
             'required' => 'O campo :attribute  é obrigatorio',
             'unidade_id.integer' => 'O de :attribute tem que ser um valor inteiro',
             'unidade_id.exists' => 'não existe essa unidade',
+            'fornecedor_id.exists' => 'não existe esse id na tabela de fornecedores',
         ];
         $request->validate($regras, $feedback);
 
-        Produto::create($request->all());
+        Item::create($request->all());
 
         return redirect()->route('produto.index');
     }
@@ -124,40 +128,50 @@ class ProdutoController extends Controller
     {
         // recebe todos os registro da tabela unidades,
         // isso é feito atraves do metodo all();
-
         $unidade = Unidade::all();
-
+        $fornecedores = Fornecedor::all();
         // dd($unidade);
-
-        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidade]);
+        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidade ,'fornecedores' => $fornecedores]);
         // return view('app.produto.create',['produto'=>$produto , 'unidades'=>$unidade]);
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto)
     {
         // AO ENVIAR O ID PARA O CONTROLLER , ATRAVES DA ROTA QUE COLOCAMOS NO FORMULARIO,
         // O LARAVEL JA TRAZ O OJETO RELACIONADO AO ID ENVIADO ATRAVES DO ARRAY ASSOCIATIVO,
         // DESSA FORMA JÁ TEMOS O REGISTRO CORRETO PARA FAZEMOS A EDIÇÃO;
-
         // NO REQUESTE VEM AS INFORMAÇÕES DIGITADAS NO FORMUALARIO;
-
-
         // $request->all();// representa o payload , os dados uteis da requisição http;
-
         // print_r($request->all());// reorna um arry associativo ;
         //atributos que eu quero persistir no lugar do resgsitro antigo;
-
         // echo '<br>';
-
         //print_r($produto->getAttributes()); // retorna um arrray associativo  ;
         // do objeto no estado anterior; traz o registro em que quero alterar 
         // pelo id enviado na rota do formulario atraves de um array associativo;
         // dados do objeto no banco;
+        // dd($request->all());
+        //  envia um array associatvio;
+        $regras = [
+            'nome' => 'required',
+            'descricao' => 'required',
+            'peso' => 'required',
+            // o id informado tem que existir na tabela unidades;
+            'unidade_id' => 'exists:unidades,id',
+            'nome' => 'required',
+            'fornecedor_id' => 'exists:fornecedores,id',
+        ];
 
-
+        $feedback = [
+            // essa mesagem vai para todos os atributos que tem 
+            // o required;
+            'required' => 'O campo :attribute  é obrigatorio',
+            'unidade_id.integer' => 'O de :attribute tem que ser um valor inteiro',
+            'unidade_id.exists' => 'não existe essa unidade',
+            'fornecedor_id.exists' => 'não existe esse id na tabela de fornecedores',
+        ];
+        $request->validate($regras, $feedback);
         $produto->update($request->all());
 
         // redirecionanod para o view show , e passado com parametro o id do produto(registro);

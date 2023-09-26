@@ -73,8 +73,8 @@ hmlt --}}
                                             {{-- chama a funçção produtos para cada objeto de fornecedro 
                                          e recuperar cada objeto de produtos --}}
                                             @foreach ($fornecedor->produtos as $key => $produto)
-                                            {{-- cada produoto de cada um dos nosso fornecedores recu
-                                            permos o nome --}}
+                                            {{-- cada produto de cada um dos nosso fornecedores recu
+                                            peramos o nome e id --}}
                                                 <tr>
                                                     <td>{{$produto->id}}</td>
                                                     <td>{{$produto->nome}}</td>

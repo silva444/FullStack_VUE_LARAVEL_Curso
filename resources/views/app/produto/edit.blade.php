@@ -34,7 +34,7 @@ hmlt --}}
             {{-- aplicando esse  estilo para centralizar a div --}}
              {{ isset($msg) && $msg != '' ? $msg : '' }}
             <div style="width: 30%; margin-right: auto; margin-left: auto;">
-                @component('app.produto._component.form_create_edit',['produto'=>$produto , 'unidades'=>$unidades])
+                @component('app.produto._component.form_create_edit',['produto'=>$produto , 'unidades'=>$unidades, 'fornecedores'=> $fornecedores])
                 @endcomponent
     
             </div>

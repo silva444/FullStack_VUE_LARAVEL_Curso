@@ -42,7 +42,7 @@ hmlt --}}
                 {{-- ou dessa forma dar na mesma  --}}
                 {{-- {{  $msg ?? '' }} --}}
 
-            @component('app.produto._component.form_create_edit',['unidades'=>$unidades])
+            @component('app.produto._component.form_create_edit',['unidades'=>$unidades, 'fornecedores'=> $fornecedores ])
     
            @endcomponent
                
