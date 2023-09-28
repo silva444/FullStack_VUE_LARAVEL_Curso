@@ -8,7 +8,8 @@
     <div class="menu">
         <ul>
             <li><a href="{{ route('app.home') }}">Home</a></li>
-            <li><a href="{{ route('app.cliente') }}">CLiente</a></li>
+            <li><a href="{{ route('cliente.index') }}">CLiente</a></li>
+            <li><a href="{{ route('pedido.index') }}">Pedido</a></li>
             <li><a href="{{ route('app.fornecedor') }}">fornecedor</a></li>
             {{-- fetio o ajuste na rota de produto pq p metodo 
             Route::resource('produto', ProdutoController::class); , 
