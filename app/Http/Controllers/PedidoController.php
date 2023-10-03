@@ -23,7 +23,8 @@ class PedidoController extends Controller
     public function create()
     {
         $clientes = Cliente::all(); 
-        return view('app.pedido.create',['clientes'=>$clientes]);
+        //dd($clientes);
+        return view('app.pedido.create',['clientes'=> $clientes]);
     }
 
     /**

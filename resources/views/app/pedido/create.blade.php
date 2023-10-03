@@ -1,6 +1,8 @@
 @extends('app.layouts.basico')
 
 @section('titulo', 'Pedido')
+
+
 {{-- este conteudo vai para o Yeld do basico.blade.php , mas 
 para fazer isso tenho que extender(herda) a view que quero adicionnar essa section(conteudo)
 hmlt --}}
@@ -8,8 +10,8 @@ hmlt --}}
     <div class="conteudo-pagina">
         {{-- action="{{route('')}}" --}}
         <div class="titulo-pagina-2">
-            {{-- se exitir o atributo id -  entao é edição --}}
-            {{-- @if (isset($produto->id))
+           {{-- se exitir o atributo id -  entao é edição --}}
+            {{-- @if(isset($produto->id))
             <p>Produto = update</p>
             @else
             <p>Produto = adicionnar</p>
@@ -32,8 +34,8 @@ hmlt --}}
                 {{ isset($msg) && $msg != '' ? $msg : '' }}
                 {{-- ou dessa forma dar na mesma  --}}
                 {{-- {{  $msg ?? '' }} --}}
-                @component('app.pedido._component.form_create_edit')
-                @endcomponent
+            @component('app.pedido._component.form_create_edit',['clientes'=> $clientes])
+           @endcomponent
             </div>
         </div>
     </div>

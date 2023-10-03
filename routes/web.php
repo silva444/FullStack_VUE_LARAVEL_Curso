@@ -53,7 +53,7 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/sair',[LoginController::class, 'sair'])->name('app.sair');
     // chamada encadeada de middleware /
     // caso de tudo certo vai para na função  de callback;
-    Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
+    // Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 
     Route::get('/fornecedor', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
     Route::post('/fornecedor/listar/', [\App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
@@ -92,11 +92,16 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     // para ver é só usar o comando route:list
     Route::resource('cliente', ClienteController::class);
     Route::resource('pedido', PedidoController::class);
-    Route::resource('pedido-produto', PedidoProdutoController::class);
+    // Route::resource('pedido-produto', PedidoProdutoController::class);
+    // passamos o paramentro pedido pq para cirar um pedido_produto
+    // precisamos desse parametro;
 
+    Route::get('pedido-produto/create/{pedido}',
+     [PedidoProdutoController::class, 'create'])->name('pedido-produto.create');
 
+    Route::post('pedido-produto/store/{pedido}',
+     [PedidoProdutoController::class, 'store'])->name('pedido-produto.store');
 
-  
 });
 
 // oque esta entre chaves pode ser chamado de parametro;

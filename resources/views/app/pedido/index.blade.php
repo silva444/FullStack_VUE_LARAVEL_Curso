@@ -28,6 +28,7 @@ hmlt --}}
                         <tr>
                             <th>ID do Pedido</th>
                             <th>Cliente</th>
+                            <th></th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
@@ -39,6 +40,7 @@ hmlt --}}
                             <tr>
                                 <td>{{ $pedido->id }}</td>
                                 <td>{{ $pedido->cliente_id }}</td>
+                                <td><a href="{{route('pedido-produto.create',['pedido'=>$pedido->id])}}">Adicionar Produto</a></td>
                                 <td>
                                     <form id="form_{{ $pedido->id }}"
                                         action="{{ route('pedido.destroy', ['pedido' => $pedido->id]) }}" method="post">
