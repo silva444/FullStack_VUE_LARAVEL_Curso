@@ -27,7 +27,10 @@ class Pedido extends Model
         // que nesta caso é o Item;
 
         // quando o nome não é padronizado fazemos desssa forma;
-        return $this->belongsToMany('App\Models\Item','pedidos_produtos', 'pedido_id','produto_id' );
+        // utilizamos o withPivot , para trazer a coluna da data como pivot;
+
+        return $this->belongsToMany('App\Models\Item','pedidos_produtos',
+         'pedido_id','produto_id' )->withPivot('created_at','updated_at','id');
         // quando os nome sõa padronizados fazamos dessa forma ;
         // return $this->belongsToMany('App\Models\Produto','pedidos_produtos' );
     }

@@ -41,6 +41,8 @@ hmlt --}}
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
+                            <th>Data da inclusão</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,10 +53,26 @@ hmlt --}}
                         <tr>
                             <td>{{$produto->id}}</td>
                             <td>{{$produto->nome}}</td>
+                            <td>{{$produto->pivot->created_at->format('d/m/Y')}}</td>
+                            <td>
+                            {{-- {{$pedido->id}}_{{$produto->id}} --}}
+                            {{-- apaga o produto de acordo com o id da tabela 
+                            pedidos_produtos --}}
+                            <form id="form_{{$produto->pivot->id}}" method="post" 
+                            {{-- ['pedido'=>$pedido->id,'produto'=>$produto->id] - estava assimm nos paramentros]
+                            para deletar pelas os ids de produtos e pediods  --}}
+                            action="{{route('pedido-produto.destroy',['pedidoProduto'=>$produto->pivot->id, 'pedido_id'=>$pedido->id])}}">
+                            @method('DELETE')
+                            @csrf
+                            {{-- {{route()}} --}}
+                            <a href="#" onclick="document.getElementById('form_{{$produto->pivot->id}}').submit()">Excluir </a>
+                            </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{-- {{$pedido}} --}}
                 @component('app.pedido_produto._component.form_create', ['pedido' => $pedido, 'produtos' => $produtos])
                 @endcomponent
 
