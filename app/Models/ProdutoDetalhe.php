@@ -22,3 +22,5 @@ class ProdutoDetalhe extends Model
        return $this->belongsTo('App\Models\Produto');
     }
 }
+
+// testando commmit 

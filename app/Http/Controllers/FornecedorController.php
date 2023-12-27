@@ -130,9 +130,7 @@ class FornecedorController extends Controller
 
             // ou seja um array com todas as informações do formulario;
             $update = $fornecedor->update($request->all());
-
             //dd($update);
-
             if ($update) { // caso realizado com sucesso 
                 $msg = "Update realizado com sucesso";
             } else {

@@ -31,8 +31,6 @@ class Fornecedor extends Model
         
         // não precisrioa passa o fornecedore_id e o id ,
         //  pois isso é feito de forma implicita;
-        
-
        return $this->hasMany('App\models\item', 'fornecedor_id', 'id');
     }
 }

@@ -21,7 +21,11 @@ class PedidoProdutoController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(Pedido $pedido)
+
+
     {
+
+        //dd($pedido);
         $produtos = Produto::all();
         //dd($produtos);
         // dessa forma utilizamos o eager loading(carregamento ocioso);
@@ -120,7 +124,7 @@ class PedidoProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PedidoProduto $pedidoproduto , $pedido_id )
+    public function destroy(PedidoProduto $pedidoproduto, $pedido_id )
     {
         // recupera apenas os atributos
         // print_r($pedido->getAttributes());
@@ -147,6 +151,8 @@ class PedidoProdutoController extends Controller
 
         // $pedido->produtos()->detach($produto->id);
         $pedidoproduto->delete();
+        // dd($pedidoproduto);
+         
         return redirect()->route('pedido-produto.create',['pedido'=>$pedido_id]);
     }
 }
